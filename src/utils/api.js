@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const apiClient = axios.create({
     baseURL: 'http://lifestealer86.ru/api-shop',
+    mode: 'no-cors',
     headers: {
         'Content-Type': 'application/json',
     },
