@@ -3,13 +3,14 @@
     <h1>Корзина</h1>
     <div v-if="cartProducts.length === 0">Корзина пуста</div>
     <div v-else>
-      <ul>
-        <li v-for="product in cartProducts" :key="product.id">
+      <div>
+        <div v-for="product in cartProducts" :key="product.id">
           <h2>{{ product.name }}</h2>
+          <img :src="getImageUrl(product.image)" :alt="product.name" class="image">
           <p>Цена: {{ product.price.toFixed(2) }} руб.</p>
-          <button @click="removeFromCart(product.id)">Удалить</button>
-        </li>
-      </ul>
+        </div>
+      </div>
+      <button @click="removeFromCart">Удалить последнию</button>
       <h3>Итого: {{ totalPrice.toFixed(2) }} руб.</h3>
     </div>
   </div>
@@ -51,11 +52,17 @@ export default {
         console.error('Ошибка при получении данных о товарах:', error);
       }
     },
+    getImageUrl(relativePath) {
+      return `http://lifestealer86.ru/${relativePath}`;
+    },
     ...mapActions(['removeFromCart']),
   },
 };
 </script>
 
 <style scoped>
-
+.image{
+  max-width: 10%;
+  height: auto;
+}
 </style>
