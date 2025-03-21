@@ -35,5 +35,13 @@ export default createStore({
     logout({ commit }) {
       commit('clearToken');
     },
+    addToCart(state, productId) {
+      // Логика для добавления товара в корзину
+      // Например, вы можете создать массив для хранения товаров в корзине
+      if (!state.cart) {
+        state.cart = [];
+      }
+      state.cart.push(productId);
+    },
   },
 });
