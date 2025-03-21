@@ -2,6 +2,10 @@
 node_modules
 /dist
 
+.eslintrc.js
+.browserslistrc
+jsconfig.json
+README.md
 
 # local env files
 .env.local
