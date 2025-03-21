@@ -11,6 +11,7 @@
         <input type="password" id="password" v-model="credentials.password" required />
       </div>
       <button type="submit">Войти</button>
+      <a href="http://localhost:8080/register">Регистрация</a>
     </form>
     <p v-if="errorMessage">{{ errorMessage }}</p>
   </div>
@@ -52,6 +53,7 @@ export default {
     },
   },
 };
+
 </script>
 
 <style scoped>

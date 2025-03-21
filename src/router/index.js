@@ -1,11 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import store from '@/store'; // Импортируем Vuex store
+import store from '@/store';
 
 const routes = [
     { path: '/', name: 'Catalog', component: () => import('@/views/CatalogView.vue') },
     { path: '/login', name: 'Login', component: () => import('@/views/LoginView.vue') },
     { path: '/register', name: 'Register', component: () => import('@/views/Register.vue') },
-    // { path: '/orders', name: 'Orders', component: () => import('@/views/Orders.vue') },
     { path: '/cart', name: 'Cart', component: () => import('@/views/Cart.vue') },
 ];
 
@@ -14,19 +13,19 @@ const router = createRouter({
     routes,
 });
 
-// Навигационные хуки для проверки авторизации
-router.beforeEach((to, from, next) => {
-    const isAuthenticated = store.getters.isAuthenticated; // Проверяем, авторизован ли пользователь
 
-    // Если пользователь пытается попасть на защищенный маршрут без авторизации
+router.beforeEach((to, from, next) => {
+    const isAuthenticated = store.getters.isAuthenticated;
+
+
     if (to.name !== 'Login' && to.name !== 'Register' && !isAuthenticated) {
-        next({ name: 'Login' }); // Перенаправляем на страницу входа
+        next({ name: 'Login' });
     }
-    // Если авторизованный пользователь пытается попасть на страницу входа или регистрации
+
     else if ((to.name === 'Login' || to.name === 'Register') && isAuthenticated) {
-        next({ name: 'Catalog' }); // Перенаправляем на главную страницу
+        next({ name: 'Catalog' });
     }
-    // В остальных случаях разрешаем переход
+
     else {
         next();
     }

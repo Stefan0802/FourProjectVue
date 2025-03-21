@@ -66,4 +66,15 @@
   max-width: 100%;
   height: auto;
 }
+
+.product > button{
+  background-color: #3aa876;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+.product > button:hover{
+  background-color: #42b983;
+}
 </style>

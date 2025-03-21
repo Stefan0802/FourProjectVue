@@ -17,14 +17,14 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import api from '@/utils/api'; // Импортируем API для получения информации о товарах
+import api from '@/utils/api';
 
 export default {
   name: 'ShoppingCart',
   computed: {
     ...mapGetters(['cartItems']),
     cartProducts() {
-      // Проверяем, что cartItems определён
+
       if (!this.cartItems) {
         return [];
       }
@@ -57,5 +57,5 @@ export default {
 </script>
 
 <style scoped>
-/* Добавьте стили для корзины */
+
 </style>

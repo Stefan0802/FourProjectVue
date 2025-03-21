@@ -14,13 +14,13 @@ export default {
   computed: {
     ...mapGetters(['isAuthenticated', 'cartItems']),
     cartCount() {
-      return this.cartItems.length; // Количество товаров в корзине
+      return this.cartItems.length;
     },
   },
   methods: {
     ...mapActions(['logout']),
     async handleLogout() {
-      await this.logout(this.$router); // Передаем router в действие logout
+      await this.logout(this.$router);
     },
   },
 };

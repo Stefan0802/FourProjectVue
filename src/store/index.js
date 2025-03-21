@@ -1,26 +1,26 @@
 import { createStore } from 'vuex';
-import api from '@/utils/api'; // Импортируем API
+import api from '@/utils/api';
 
 export default createStore({
   state: {
-    token: localStorage.getItem('user_token') || null, // Токен пользователя
+    token: localStorage.getItem('user_token') || null,
     cartItems: [],
     products: [],
     isAuthenticated: false,
   },
   getters: {
-    isAuthenticated: (state) => !!state.token, // Проверка авторизации
+    isAuthenticated: (state) => !!state.token,
     cartItems: (state) => state.cartItems,
     products: (state) => state.products,
   },
   mutations: {
     setToken(state, token) {
       state.token = token;
-      localStorage.setItem('user_token', token); // Сохраняем токен в localStorage
+      localStorage.setItem('user_token', token);
     },
     clearToken(state) {
       state.token = null;
-      localStorage.removeItem('user_token'); // Удаляем токен из localStorage
+      localStorage.removeItem('user_token');
     },
     ADD_TO_CART(state, productId) {
       state.cartItems.push(productId);
@@ -29,10 +29,10 @@ export default createStore({
       state.cartItems.pop();
     },
     SET_AUTHENTICATED(state, status) {
-      state.isAuthenticated = status; // Устанавливаем статус аутентификации
+      state.isAuthenticated = status;
     },
     CLEAR_CART(state) {
-      state.cartItems = []; // Очищаем корзину при выходе
+      state.cartItems = [];
     },
   },
   actions: {
@@ -40,21 +40,21 @@ export default createStore({
       return new Promise((resolve, reject) => {
         api.login(credentials)
             .then((response) => {
-              commit('setToken', response.data.data.user_token); // Сохраняем токен
+              commit('setToken', response.data.data.user_token);
               resolve(response);
             })
             .catch((error) => {
-              console.error('Ошибка авторизации:', error); // Логирование ошибок
+              console.error('Ошибка авторизации:', error);
               reject(error);
             });
       });
     },
     logout({ commit }, router) {
       return new Promise((resolve) => {
-        commit('CLEAR_CART'); // Очищаем корзину
-        commit('clearToken'); // Удаляем токен
-        router.push('/login'); // Перенаправляем на страницу авторизации
-        resolve(); // Уведомляем, что действие завершено
+        commit('CLEAR_CART');
+        commit('clearToken');
+        router.push('/login');
+        resolve();
       });
     },
     addToCart({ commit }, productId) {
