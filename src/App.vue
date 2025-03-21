@@ -1,26 +1,30 @@
 <template>
   <nav>
-<!--    <router-link to="/">Home</router-link> |-->
-<!--    <router-link to="/about">About</router-link>-->
-  <router-link to="/">Главная</router-link>
-  <router-link to="/cart">Корзина ({{ cartCount }})</router-link>
+    <router-link to="/">Главная</router-link>
+    <router-link to="/cart">Корзина ({{ cartCount }})</router-link>
+    <button v-if="isAuthenticated" @click="handleLogout">Выйти</button>
   </nav>
   <router-view/>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters(['cartItems']), // Получаем товары из корзины
+    ...mapGetters(['isAuthenticated', 'cartItems']),
     cartCount() {
       return this.cartItems.length; // Количество товаров в корзине
     },
   },
+  methods: {
+    ...mapActions(['logout']),
+    async handleLogout() {
+      await this.logout(this.$router); // Передаем router в действие logout
+    },
+  },
 };
 </script>
-
 
 <style>
 #app {

@@ -5,7 +5,8 @@ export default createStore({
   state: {
     token: localStorage.getItem('user_token') || null, // Токен пользователя
     cartItems: [],
-    products: []
+    products: [],
+    isAuthenticated: false,
   },
   getters: {
     isAuthenticated: (state) => !!state.token, // Проверка авторизации
@@ -27,6 +28,12 @@ export default createStore({
     REMOVE_FROM_CART(state) {
       state.cartItems.pop();
     },
+    SET_AUTHENTICATED(state, status) {
+      state.isAuthenticated = status; // Устанавливаем статус аутентификации
+    },
+    CLEAR_CART(state) {
+      state.cartItems = []; // Очищаем корзину при выходе
+    },
   },
   actions: {
     login({ commit }, credentials) {
@@ -42,8 +49,13 @@ export default createStore({
             });
       });
     },
-    logout({ commit }) {
-      commit('clearToken');
+    logout({ commit }, router) {
+      return new Promise((resolve) => {
+        commit('CLEAR_CART'); // Очищаем корзину
+        commit('clearToken'); // Удаляем токен
+        router.push('/login'); // Перенаправляем на страницу авторизации
+        resolve(); // Уведомляем, что действие завершено
+      });
     },
     addToCart({ commit }, productId) {
       commit('ADD_TO_CART', productId);
@@ -51,5 +63,6 @@ export default createStore({
     removeFromCart({ commit }) {
       commit('REMOVE_FROM_CART');
     },
+
   },
 });
