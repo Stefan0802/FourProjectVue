@@ -1,10 +1,26 @@
 <template>
-<!--  <nav>-->
+  <nav>
 <!--    <router-link to="/">Home</router-link> |-->
 <!--    <router-link to="/about">About</router-link>-->
-<!--  </nav>-->
+  <router-link to="/">Главная</router-link>
+  <router-link to="/cart">Корзина ({{ cartCount }})</router-link>
+  </nav>
   <router-view/>
 </template>
+
+<script>
+import { mapGetters } from 'vuex';
+
+export default {
+  computed: {
+    ...mapGetters(['cartItems']), // Получаем товары из корзины
+    cartCount() {
+      return this.cartItems.length; // Количество товаров в корзине
+    },
+  },
+};
+</script>
+
 
 <style>
 #app {

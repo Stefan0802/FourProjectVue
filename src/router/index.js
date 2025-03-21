@@ -5,8 +5,8 @@ const routes = [
     { path: '/', name: 'Catalog', component: () => import('@/views/CatalogView.vue') },
     { path: '/login', name: 'Login', component: () => import('@/views/LoginView.vue') },
     { path: '/register', name: 'Register', component: () => import('@/views/Register.vue') },
-    // { path: '/cart', name: 'Cart', component: () => import('@/views/Cart.vue') },
     // { path: '/orders', name: 'Orders', component: () => import('@/views/Orders.vue') },
+    { path: '/cart', name: 'Cart', component: () => import('@/views/Cart.vue') },
 ];
 
 const router = createRouter({

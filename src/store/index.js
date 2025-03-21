@@ -4,9 +4,13 @@ import api from '@/utils/api'; // Импортируем API
 export default createStore({
   state: {
     token: localStorage.getItem('user_token') || null, // Токен пользователя
+    cartItems: [],
+    products: []
   },
   getters: {
     isAuthenticated: (state) => !!state.token, // Проверка авторизации
+    cartItems: (state) => state.cartItems,
+    products: (state) => state.products,
   },
   mutations: {
     setToken(state, token) {
@@ -16,6 +20,12 @@ export default createStore({
     clearToken(state) {
       state.token = null;
       localStorage.removeItem('user_token'); // Удаляем токен из localStorage
+    },
+    ADD_TO_CART(state, productId) {
+      state.cartItems.push(productId);
+    },
+    REMOVE_FROM_CART(state) {
+      state.cartItems.pop();
     },
   },
   actions: {
@@ -35,13 +45,11 @@ export default createStore({
     logout({ commit }) {
       commit('clearToken');
     },
-    addToCart(state, productId) {
-      // Логика для добавления товара в корзину
-      // Например, вы можете создать массив для хранения товаров в корзине
-      if (!state.cart) {
-        state.cart = [];
-      }
-      state.cart.push(productId);
+    addToCart({ commit }, productId) {
+      commit('ADD_TO_CART', productId);
+    },
+    removeFromCart({ commit }) {
+      commit('REMOVE_FROM_CART');
     },
   },
 });
