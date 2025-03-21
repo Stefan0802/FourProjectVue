@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import api from '@/utils/api';
+import api from '@/utils/api'; // Импортируем API
 
 export default createStore({
   state: {
@@ -23,7 +23,7 @@ export default createStore({
       return new Promise((resolve, reject) => {
         api.login(credentials)
             .then((response) => {
-              commit('setToken', response.data.data.user_token);
+              commit('setToken', response.data.data.user_token); // Сохраняем токен
               resolve(response);
             })
             .catch((error) => {

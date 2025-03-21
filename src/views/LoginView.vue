@@ -21,7 +21,6 @@ import api from '@/utils/api';
 import { mapMutations } from 'vuex';
 
 export default {
-  name: 'LoginView',
   data() {
     return {
       credentials: {
