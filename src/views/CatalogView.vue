@@ -3,7 +3,7 @@
     <h1>Каталог товаров</h1>
     <div class="product-list">
       <div class="product" v-for="product in products" :key="product.id">
-        <img :src="product.image" :alt="product.name">
+        <img :src="getImageUrl(product.image)" :alt="product.name">
         <h2>{{ product.name }}</h2>
         <p>{{ product.description }}</p>
         <p>Цена: {{ product.price.toFixed(2) }} руб.</p>
@@ -35,6 +35,9 @@
         } catch (error) {
           console.error('Ошибка при получении данных о товарах:', error);
         }
+      },
+      getImageUrl(relativePath) {
+        return `http://lifestealer86.ru/${relativePath}`;
       },
       ...mapActions(['addToCart']),
     }
